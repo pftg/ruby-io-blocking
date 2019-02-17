@@ -11,12 +11,13 @@ pool = Concurrent::CachedThreadPool.new
 
 SHUFFLED_LINKS.first(250).each_slice(5).with_index do |links, index|
   pool.post do
-    puts index
+    # puts index
     links.each do |link|
       begin
         Timeout::timeout(5) do
           Net::HTTP.get_response(URI(link)).code
         end
+        sleep 1
       rescue => e
         puts "Link with error: #{link}"
         puts e.message

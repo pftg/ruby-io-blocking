@@ -18,7 +18,7 @@ def faraday_example
     SHUFFLED_LINKS.first(250).each_slice(5).with_index.map do |links, index|
       task.async do |_subtask|
         semaphore.async do
-          puts index
+          # puts index
           links.each do |link|
             begin
               # TODO: Need to figure out Timeout issue for this case:
@@ -27,6 +27,7 @@ def faraday_example
                 response = Faraday.get link, request: { timeout: 5 }
                 # puts response.status
               end
+              sleep 1
             rescue => e
               puts "Link with error: #{link}"
               puts e.message
@@ -47,3 +48,4 @@ start = Time.now
 faraday_example
 
 puts "#{Time.now - start} seconds"
+

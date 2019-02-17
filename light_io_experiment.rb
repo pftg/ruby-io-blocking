@@ -1,3 +1,5 @@
+#  time ruby --jit light_io_experiment.rb
+
 require 'lightio'
 # apply monkey patch at beginning
 LightIO::Monkey.patch_all!
@@ -10,11 +12,13 @@ start = Time.now
 
 SHUFFLED_LINKS.first(250).each_slice(5).with_index.map do |links, index|
   Thread.new do
+    # puts index
     links.each do |link|
       begin
         LightIO::Timeout.timeout(5) do
           Net::HTTP.get_response(URI(link)).code
         end
+        sleep 1
       rescue => e
         puts "Link with error: #{link}"
         puts e.message
