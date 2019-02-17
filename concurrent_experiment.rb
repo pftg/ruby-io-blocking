@@ -6,11 +6,12 @@ require 'net/http'
 
 start = Time.now
 
-pool = Concurrent::CachedThreadPool.new # 5 threads
+# pool = Concurrent::FixedThreadPool.new(20)
+pool = Concurrent::CachedThreadPool.new
 
-SHUFFLED_LINKS.first(25).each_slice(5) do |links|
+SHUFFLED_LINKS.first(250).each_slice(5).with_index do |links, index|
   pool.post do
-    # puts index
+    puts index
     links.each do |link|
       begin
         Timeout::timeout(5) do

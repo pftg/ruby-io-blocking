@@ -8,7 +8,7 @@ require './test_data'
 
 start = Time.now
 
-SHUFFLED_LINKS.first(25).each_slice(5).with_index.map do |links, index|
+SHUFFLED_LINKS.first(250).each_slice(5).with_index.map do |links, index|
   Thread.new do
     links.each do |link|
       begin
