@@ -7,7 +7,6 @@ schedule_ch = Channel(Nil).new
 SHUFFLED_LINKS.each_slice(3) do |links|
   spawn do
     schedule_ch.receive
-    puts "run"
     links.each do |link|
       response = HTTP::Client.get link
       puts response.status_code      # => 200
