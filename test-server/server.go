@@ -5,9 +5,13 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"log"
 )
 
 func main() {
+
+log.Println("Loading ...")
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		delay := int64(1)
 		delayStr := r.FormValue("delay")
@@ -22,5 +26,12 @@ func main() {
 		fmt.Fprintf(w, "Hello, you've requested: %s\n", r.URL.Path)
 	})
 
-	http.ListenAndServe(":9080", nil)
+
+s := &http.Server{
+	Addr:           ":9080",
+	ReadTimeout:    5 * time.Second,
+	WriteTimeout:   5 * time.Second,
+}
+
+log.Println(s.ListenAndServe())
 }
