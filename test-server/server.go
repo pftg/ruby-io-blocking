@@ -13,7 +13,7 @@ func main() {
 		delayStr := r.FormValue("delay")
 
 		if s, err := strconv.ParseInt(delayStr, 10, 64); err == nil {
-			delay = int64(s)
+			delay = s
 		} else {
 			fmt.Printf("Error to parse: %s", delayStr)
 		}
