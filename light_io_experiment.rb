@@ -18,7 +18,6 @@ SHUFFLED_LINKS.each_slice(5).with_index.map do |links, index|
         LightIO::Timeout.timeout(5) do
           Net::HTTP.get_response(URI(link)).code
         end
-        sleep 1
       rescue => e
         puts "Link with error: #{link}"
         puts e.message

@@ -19,10 +19,10 @@ start = Time.now
 
 pool = Concurrent::FixedThreadPool.new(5) # 5 threads
 
-SHUFFLED_LINKS.first(33).each_slice(33) do |pool_links|
+SHUFFLED_LINKS.each_slice(55) do |pool_links|
   pool.post do
     Async::Reactor.run do |task|
-      pool_links.each_slice(3).map do |links|
+      pool_links.each_slice(5).map do |links|
         task.async do |_subtask|
           links.each do |link|
             begin

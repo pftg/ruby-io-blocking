@@ -1,10 +1,10 @@
 require 'async/reactor'
 require 'async/semaphore'
-require 'async/http/faraday'
 require 'async/http/response'
 require 'async/http/server'
 require 'async/http/url_endpoint'
 
+require 'async/http/faraday'
 Faraday.default_adapter = :async_http
 
 require './test_data'
@@ -15,7 +15,7 @@ def faraday_example
 
     semaphore = Async::Semaphore.new(50)
 
-    SHUFFLED_LINKS.first(250).each_slice(5).with_index.map do |links, index|
+    SHUFFLED_LINKS.each_slice(5).with_index.map do |links, index|
       task.async do |_subtask|
         semaphore.async do
           # puts index
@@ -27,7 +27,6 @@ def faraday_example
                 response = Faraday.get link, request: { timeout: 5 }
                 # puts response.status
               end
-              sleep 1
             rescue => e
               puts "Link with error: #{link}"
               puts e.message
