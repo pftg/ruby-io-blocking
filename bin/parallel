@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+for f in ./xa?; do
+  echo "Schedule $f file..."
+  CRYSTAL_WORKERS=36 crystal run -Dpreview_mt \
+    crystal-experiments/worker_pool_experiment.cr -- "$f" 200 >> run.log 2>> err.log &
+done
+
+wait
+echo "all jobs are done!"
