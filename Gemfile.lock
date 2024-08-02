@@ -43,8 +43,8 @@ GEM
       protocol-http (~> 0.18)
     rainbow (3.1.1)
     regexp_parser (2.5.0)
-    rexml (3.2.8)
-      strscan (>= 3.0.9)
+    rexml (3.3.3)
+      strscan
     rubocop (1.35.1)
       json (~> 2.3)
       parallel (~> 1.10)
